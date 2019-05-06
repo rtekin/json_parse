@@ -417,7 +417,7 @@ for lbl, arr in npopCell.items():
         cfrequency=max(set(modelLFPfreqs), key = modelLFPfreqs.count) # most frequent element in list
     else:
         cfrequency=popRates[lbl]
-    cfrequency=20
+    cfrequency=10
     crng=npopCell[lbl]
     cindx=[i for i, e in enumerate(spkid) if e in range(crng[0],crng[1])]
     cellNum=crng[1]-crng[0]
