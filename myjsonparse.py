@@ -15,7 +15,8 @@ except NameError:
 ############################# raster plot #################################
 def _take_options(myopts, givenopts):
     """
-    varsayılan parametre değerlerini girilen parametre değerleri ile değiştirir.
+    changes the default parameter values to the entered parameter values.
+    
     """
     for k in myopts.keys():
         if k in givenopts:
@@ -46,7 +47,7 @@ def my_raster_plot(spikes,cellid,npopCell,popColors, **additionalplotoptions):
 
 def pol2cart(th,r):
     '''
-    kutupsal dan kartezyen koordinatlara dönüşüm.
+    conversion from polar to cartesian coordinates.
     '''
     x = r*np.cos(th)
     y = r*np.sin(th)
@@ -54,7 +55,7 @@ def pol2cart(th,r):
 
 def cart2pol(x,y):
     '''
-     kartezyen den kutupsal koordinatlara dönüşüm.
+    conversion from Cartesian to polar coordinates.
     '''
     th = np.arctan2(y+0,x+0);
     r = np.hypot(x,y);
@@ -149,7 +150,7 @@ def my_adjust_contourf(app1,app2,Vals,fsize=16,cmap=plt.cm.jet,alpha=1,drwline=F
 
 def vector_strength2(spikes, freq):
     '''
-    spike dizisinin vector strength değerini hesaplar.
+    Calculates vector strength value of spike sequence.
     '''
     VS=np.nan; theta=np.nan; X=[]; Y=[]; thetas=[];
     
@@ -170,7 +171,7 @@ def vector_strength2(spikes, freq):
 
 def population_VS_Calc2(spikes, freq):
     '''
-    populasyonun VS ve ilgili tüm parametrelerini hesaplar.
+    calculate the generalized VS value of the population and all other values related to VS according to flattened spikes series.
     refs: Ashida, G., ve Carr, C. E. (2009). Effect of sampling frequency on the measurement of phase-locked action potentials
     Carr, C. E., ve Friedman, M. A. (1999). Evolution of time coding systems
     
@@ -195,7 +196,7 @@ def population_VS_Calc2(spikes, freq):
         
 def population_VS_Calc(spikes, freq, bins,N=None):
     '''
-    populasyonun VS ve ilgili tüm parametrelerini hesaplar.
+    It calculates the VS value of each cell belonging to a specific population and all other values related to VS.
     refs: Ashida, G., ve Carr, C. E. (2009). Effect of sampling frequency on the measurement of phase-locked action potentials
     Carr, C. E., ve Friedman, M. A. (1999). Evolution of time coding systems
     
@@ -219,18 +220,15 @@ def population_VS_Calc(spikes, freq, bins,N=None):
         VSsX[i].append(X); VSsY[i].append(Y);
         a=np.histogram(thetas,bins,normed=False)
         VSsThetaM[i].append(a[0])
-    # tüm ağın VS değeri ağın tüm spikeları birleştirilerek hesaplanıyor
+    # in the population, the VS of the network is calculated by combining the spikes of all cells  in a single series.
     meanVS = population_VS_Calc2(spikes,freq)[0]
     #meanVS = mean(VSs) #sum([ x for x in VSs if not math.isnan(x)])/len(spikes)
-    
-    # --->> sil ! # zayıf spike aktivitesi yanıltıcı olduğundan VS frekans ile carpıldı
-    #netmf = network_mean_frequency(spikes,N)[0] 
     
     return VSs,VSsTh,VSsTheta,VSsX,VSsY,np.squeeze(VSsThetaM),meanVS
 
 def flatten_list(l):
     '''
-    list birleştirir.
+    flattens the list.
     '''
     for el in l:
         if isinstance(el, Iterable) and not isinstance(el, basestring):
@@ -241,7 +239,7 @@ def flatten_list(l):
 
 def flatten_dict(d):
     '''
-    dict birleştirir.
+    flattens the dict
     '''
     for k,v in d.items():
         if isinstance(v, dict):
