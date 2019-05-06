@@ -263,7 +263,7 @@ def butter_highpass_filter(data, cutoff, fs, order=5):
     return y
 
 
-fname = 'v53_batch12_0_0_0' # 'v53_batch12_1_0_0' # 'v53_batch12_2_0_0' # 'M1detailed' # 
+fname = 'v53_batch12_1_0_0' # 'v53_batch12_0_0_0' # 'v53_batch12_2_0_0' # 'M1detailed' # 
 
 with open(fname+'.json', 'r') as f:
     M1detailed_dict = json.load(f)
@@ -417,7 +417,7 @@ for lbl, arr in npopCell.items():
         cfrequency=max(set(modelLFPfreqs), key = modelLFPfreqs.count) # most frequent element in list
     else:
         cfrequency=popRates[lbl]
-    cfrequency=30
+    cfrequency=40
     crng=npopCell[lbl]
     cindx=[i for i, e in enumerate(spkid) if e in range(crng[0],crng[1])]
     cellNum=crng[1]-crng[0]
